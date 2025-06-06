@@ -1,0 +1,25 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: BuildBackendAndFrontend
+  displayName: 'Build backend and frontend'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Use Node.js'
+
+  - script: |
+      cd backend
+      npm install
+    displayName: 'Install Backend Dependencies'
+
+  - script: |
+      cd frontend
+      npm install
+      npm run build
+    displayName: 'Build React Frontend'
